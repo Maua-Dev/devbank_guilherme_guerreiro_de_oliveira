@@ -10,6 +10,7 @@ class Test_user:
         assert user.name == "test"
         assert user.agency == 1234
         assert user.account == 123456
+        assert user.current_balance == 1000
 
     def test_user_name_is_none(self):
         with pytest.raises(ParamNotValidated):
@@ -31,6 +32,10 @@ class Test_user:
         with pytest.raises(ParamNotValidated):
             User(name="test", account=123456)
 
+    def test_user_agency_is_not_int(self):
+        with pytest.raises(ParamNotValidated):
+            User(name="test", agency="aaaa", account=123456)
+
     def test_user_agency_is_negative(self):
         with pytest.raises(ParamNotValidated):
             User(name="test",agency=-1234, account=123456)
@@ -42,6 +47,10 @@ class Test_user:
     def test_user_account_is_none(self):
         with pytest.raises(ParamNotValidated):
             User(name="test",agency=1234)
+    
+    def test_user_account_is_not_int(self):
+        with pytest.raises(ParamNotValidated):
+            User(name="test", agency=1234, account="123456")
 
     def test_user_account_is_negative(self):
         with pytest.raises(ParamNotValidated):

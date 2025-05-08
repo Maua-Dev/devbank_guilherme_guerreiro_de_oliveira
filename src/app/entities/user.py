@@ -5,7 +5,7 @@ class User:
     name: str
     agency: int
     account: int
-    current_balance: 1000
+    current_balance= 1000
 
     def __init__(self, name: str=None, agency: int=None, account: int=None):
         validation_name= self.validate_name(name)
@@ -39,6 +39,8 @@ class User:
     def validate_agency(agency: int) -> Tuple[bool, str]:
         if agency is None:
             return(False, "Agency is required")
+        if type(agency) != int:
+            return(False, "Agency must be a integer")
         if agency < 0:
             return(False, "Agency can't be negative")
         if len(str(agency)) != 4:
@@ -49,6 +51,8 @@ class User:
     def validate_account(account: int) -> Tuple[bool, str]:
         if account is None:
             return(False, "Account is required")
+        if type(account) != int:
+            return(False, "Account must be a integer")
         if account < 0:
             return(False, "Account can't be negative")
         if len(str(account)) != 6:
