@@ -37,10 +37,3 @@ class ITransactionRepositoy(ABC):
         If the transaction_type is withdraw, returns None
         '''
         pass
-    
-    @abstractmethod
-    def current_balance_after_transaction(self, transaction:Transaction) -> float:
-        ''''
-        Returns the current balance value after a transaction
-        '''
-        pass

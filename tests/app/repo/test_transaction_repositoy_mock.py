@@ -64,19 +64,3 @@ class Test_TransactionRepositoryMock:
         exceptTransaction= repo.create_deposit_transaction(transaction=widrawTransaction)
 
         assert exceptTransaction == None
-
-    # def test_current_balance_after_transaction_withdraw(self):
-    #     repo= TransactionRepositoryMock()
-
-    #     widrawTransaction= Transaction(transaction_type=TransactionTypeEnum.withdraw, value=100.0, current_balance=1000.0, timestamp=123.4)
-    #     balance_after_transaction= repo.current_balance_after_transaction(widrawTransaction)
-
-    #     assert balance_after_transaction == 900.0
-
-    # def test_current_balance_after_transaction_deposit(self):
-    #     repo= TransactionRepositoryMock()
-
-    #     depositTransaction= Transaction(transaction_type=TransactionTypeEnum.deposit, value=100.0, current_balance=1000.0, timestamp=123.4)
-    #     balance_after_transaction= repo.current_balance_after_transaction(depositTransaction)
-
-    #     assert balance_after_transaction == 1100.0
