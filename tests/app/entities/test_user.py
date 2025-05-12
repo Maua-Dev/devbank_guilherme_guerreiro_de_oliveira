@@ -59,6 +59,12 @@ class Test_user:
     def test_user_account_len_is_different_of_six(self):
         with pytest.raises(ParamNotValidated):
             User(name="test",agency=1234, account=1234567)
-
-
+    
+    def test_current_balance_is_not_float(self):
+        with pytest.raises(ParamNotValidated):
+            User(name="test",agency=1234, account=123456, current_balance=1000)
+    
+    def test_current_balance_is_negative(self):
+        with pytest.raises(ParamNotValidated):
+            User(name="test",agency=1234, account=123456, current_balance=-1000.0)
     

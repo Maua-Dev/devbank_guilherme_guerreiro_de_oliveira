@@ -5,9 +5,9 @@ class User:
     name: str
     agency: int
     account: int
-    current_balance= 1000.0
+    current_balance= float
 
-    def __init__(self, name: str=None, agency: int=None, account: int=None):
+    def __init__(self, name: str=None, agency: int=None, account: int=None, current_balance: float=1000.0):
         validation_name= self.validate_name(name)
         if validation_name[0] is False:
             raise ParamNotValidated("name", validation_name[1])
@@ -22,6 +22,11 @@ class User:
         if validation_account[0] is False:
             raise ParamNotValidated("agency", validation_account[1])
         self.account= account
+
+        validation_current_balance= self.validate_current_balance(current_balance)
+        if validation_current_balance[0] is False:
+            raise ParamNotValidated("current balance", validation_current_balance[1])
+        self.current_balance= current_balance
 
     @staticmethod
     def validate_name(name: str) -> Tuple[bool, str]:
@@ -57,4 +62,12 @@ class User:
             return(False, "Account can't be negative")
         if len(str(account)) != 6:
             return(False, "Account must have 6 digits")
+        return(True, "")
+    
+    @staticmethod
+    def validate_current_balance(current_balance: float) -> Tuple[bool, str]:
+        if type(current_balance) != float:
+            return(False, "Current balance must be a float")
+        if current_balance < 0:
+            return(False, "Current balance can't be negative")
         return(True, "")

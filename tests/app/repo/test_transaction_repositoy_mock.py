@@ -8,7 +8,7 @@ class Test_TransactionRepositoryMock:
         repo=TransactionRepositoryMock()
 
         transactions= repo.get_all_transactions()
-        expectTransactions= repo.transactions
+        expectTransactions= list(repo.transactions.values())
 
         assert expectTransactions == transactions
 
@@ -31,8 +31,8 @@ class Test_TransactionRepositoryMock:
         repo=TransactionRepositoryMock()
 
         len_before= len(repo.transactions)
-        widrawTransaction= Transaction(transaction_type=TransactionTypeEnum.withdraw, value=100.0, current_balance=900.0)
-        repo.create_withdraw_transaction(transaction=widrawTransaction, transaction_id=3)
+        widrawTransaction= Transaction(transaction_type=TransactionTypeEnum.withdraw, value=100.0, current_balance=900.0, timestamp=123.4)
+        repo.create_withdraw_transaction(transaction=widrawTransaction)
         len_after= len(repo.transactions)
 
         assert widrawTransaction == repo.transactions.get(3)
@@ -41,8 +41,8 @@ class Test_TransactionRepositoryMock:
     def test_create_withdraw_transaction_however_transaction_type_is_deposit(self):
         repo=TransactionRepositoryMock()
 
-        depositTransaction= Transaction(transaction_type=TransactionTypeEnum.deposit, value=100.0, current_balance=1100.0)
-        exceptTransaction= repo.create_withdraw_transaction(transaction=depositTransaction, transaction_id=3)
+        depositTransaction= Transaction(transaction_type=TransactionTypeEnum.deposit, value=100.0, current_balance=1100.0, timestamp=123.4)
+        exceptTransaction= repo.create_withdraw_transaction(transaction=depositTransaction)
         
         assert None == exceptTransaction
 
@@ -50,8 +50,8 @@ class Test_TransactionRepositoryMock:
         repo=TransactionRepositoryMock()
 
         len_before= len(repo.transactions)
-        depositTransaction= Transaction(transaction_type=TransactionTypeEnum.deposit, value=100.0, current_balance=1100.0)
-        repo.create_deposit_transaction(transaction=depositTransaction, transaction_id=3)
+        depositTransaction= Transaction(transaction_type=TransactionTypeEnum.deposit, value=100.0, current_balance=1100.0, timestamp=123.4)
+        repo.create_deposit_transaction(transaction=depositTransaction)
         len_after= len(repo.transactions)
 
         assert depositTransaction == repo.transactions.get(3)
@@ -60,23 +60,7 @@ class Test_TransactionRepositoryMock:
     def test_create_deposit_transaction_however_transaction_type_is_withdraw(self):
         repo=TransactionRepositoryMock()
 
-        widrawTransaction= Transaction(transaction_type=TransactionTypeEnum.withdraw, value=100.0, current_balance=900.0)
-        exceptTransaction= repo.create_deposit_transaction(transaction=widrawTransaction, transaction_id=3)
+        widrawTransaction= Transaction(transaction_type=TransactionTypeEnum.withdraw, value=100.0, current_balance=900.0, timestamp=123.4)
+        exceptTransaction= repo.create_deposit_transaction(transaction=widrawTransaction)
 
         assert exceptTransaction == None
-
-    def test_current_balance_after_transaction_withdraw(self):
-        repo= TransactionRepositoryMock()
-
-        widrawTransaction= Transaction(transaction_type=TransactionTypeEnum.withdraw, value=100.0, current_balance=1000.0)
-        balance_after_transaction= repo.current_balance_after_transaction(widrawTransaction)
-
-        assert balance_after_transaction == 900.0
-
-    def test_current_balance_after_transaction_deposit(self):
-        repo= TransactionRepositoryMock()
-
-        depositTransaction= Transaction(transaction_type=TransactionTypeEnum.deposit, value=100.0, current_balance=1000.0)
-        balance_after_transaction= repo.current_balance_after_transaction(depositTransaction)
-
-        assert balance_after_transaction == 1100.0
