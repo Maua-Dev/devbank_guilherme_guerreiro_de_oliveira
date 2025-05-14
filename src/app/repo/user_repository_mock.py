@@ -4,7 +4,7 @@ from ..enums.transaction_type_enum import TransactionTypeEnum
 
 from ..entities.transaction import Transaction
 
-from ..repo.user_repository_interface import IUserRepositoy
+from .user_repository_interface import IUserRepository
 
 
 
@@ -12,7 +12,7 @@ from ..entities.user import User
 
 
 
-class UserRepositoryMock(IUserRepositoy):
+class UserRepositoryMock(IUserRepository):
     users: Dict[int, User]
 
     def __init__(self):

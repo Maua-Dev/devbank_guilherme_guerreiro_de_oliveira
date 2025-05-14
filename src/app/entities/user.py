@@ -71,3 +71,24 @@ class User:
         if current_balance < 0:
             return(False, "Current balance can't be negative")
         return(True, "")
+    
+    @staticmethod
+    def validate_id_user(id_user: int) -> Tuple[bool, str]:
+        if id_user is None:
+            return (False, "Missing 'id_user' parameter")
+
+        if type(id_user) != int:
+            return (False, "Parameter 'id_user' must be an integer")
+        
+        if id_user < 0:
+            return (False, "Parameter 'id_user' must be a positive integer")
+
+        return (True, "")
+    
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "agency": self.agency,
+            "account": self.account,
+            "current_balance": self.current_balance
+        }

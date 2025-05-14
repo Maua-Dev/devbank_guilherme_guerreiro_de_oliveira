@@ -27,7 +27,7 @@ class Transaction:
         validation_timestamp= self.validate_timestamp(timestamp)
         if validation_timestamp[0] is False:
             raise ParamNotValidated("timestamp", validation_timestamp[1])
-        self.timestamp= timestamp
+        self.timestamp= round(timestamp)
 
     @staticmethod
     def validate_transaction_type(transaction_type: TransactionTypeEnum) -> Tuple[bool, str]:

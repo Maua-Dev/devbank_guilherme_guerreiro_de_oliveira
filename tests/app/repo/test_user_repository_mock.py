@@ -1,7 +1,7 @@
 from src.app.entities.transaction import Transaction
-from src.app.entities.user import User
+# from src.app.entities.user import User
 from src.app.enums.transaction_type_enum import TransactionTypeEnum
-from src.app.repo.user_repositoy_mock import UserRepositoryMock
+from src.app.repo.user_repository_mock import UserRepositoryMock
 
 
 class Test_UserRepositoryMock:
