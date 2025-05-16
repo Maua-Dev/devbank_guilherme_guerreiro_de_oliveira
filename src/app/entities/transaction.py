@@ -66,3 +66,12 @@ class Transaction:
         if timestamp < 0:
             return(False, "Timestamp can't be negative")
         return(True, "")
+    
+    @staticmethod
+    def validate_request(request: dict) -> Tuple[bool, str]:
+        if request is None:
+            return(False, "Request is required")
+        if type(request) != dict:
+            return(False, "Request must be a dict")
+        return(True, "")
+        

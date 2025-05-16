@@ -32,14 +32,18 @@ def get_user(id_user: int):
 
 @app.post("/deposit", status_code=201)
 def deposit_transaction(request: dict):
+    validation_request= Transaction.validate_request(request=request)
+    if not validation_request[0]:
+        raise HTTPException(status_code=400, detail=validation_request[1])
+    
     options=['2', '5', '10', '20', '50', '100', '200']
     total_value= 0
-
     for i in options:
-        value = float(i) * request.get(i)
+        value = float(i) * request.get(i,0)
         validation_value= Transaction.validate_value(value=value)
         if not validation_value[0]:
-            raise HTTPException(status_code=400, detail=validation_value[1])
+            raise HTTPException(status_code=400, detail=validation_value
+            [1])
         total_value+= value
 
     user_current_balance= user_repo.get_user(1).current_balance
@@ -47,7 +51,7 @@ def deposit_transaction(request: dict):
     if total_value > (2 * user_current_balance):
         raise HTTPException(status_code=403, detail="Depósito suspeito")
     user_current_balance+= total_value
-
+    
     deposit_transaction= Transaction(transaction_type=TransactionTypeEnum.deposit, value=total_value, current_balance=user_current_balance, timestamp=time())
 
     transaction= transaction_repo.create_deposit_transaction(transaction=deposit_transaction)

@@ -34,9 +34,7 @@ class Test_Main:
             get_user(id_user)
 
     def test_deposit_transaction(self):
-        repo_user= UserRepositoryMock()
-        repo_trans= TransactionRepositoryMock()
-
+        repo_transaction= TransactionRepositoryMock()
         body = {
             '2': 0,
             '5': 2,
@@ -49,10 +47,48 @@ class Test_Main:
 
         response= deposit_transaction(request=body)
 
-
         assert response == {
             "Current balance": 1210.0,
             "timestamp": round(time())
         }
-        
-        
+    
+    def test_deposit_transaction_value_to_higher(self):
+
+        body = {
+            '2': 0,
+            '5': 0,
+            '10': 0,
+            '20': 0,
+            '50': 0,
+            '100': 0,
+            '200': 13
+        }
+
+        with pytest.raises(HTTPException) as err:
+            deposit_transaction(request=body)
+
+    def test_deposit_transaction_value_is_none(self):
+
+        with pytest.raises(HTTPException) as err:
+            deposit_transaction(request=None)
+
+    def test_deposit_transaction_value_is_not_dict(self):
+
+        with pytest.raises(HTTPException) as err:
+            deposit_transaction(request=1)
+
+    def test_deposit_transaction_value_is_negative(self):
+
+        body = {
+            '2': 0,
+            '5': -2,
+            '10': 0,
+            '20': 0,
+            '50': 0,
+            '100': 0,
+            '200': 0,
+        }
+
+        with pytest.raises(HTTPException) as err:
+            deposit_transaction(request=body)
+    
