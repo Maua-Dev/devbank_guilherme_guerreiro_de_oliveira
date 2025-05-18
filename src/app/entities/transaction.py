@@ -27,7 +27,7 @@ class Transaction:
         validation_timestamp= self.validate_timestamp(timestamp)
         if validation_timestamp[0] is False:
             raise ParamNotValidated("timestamp", validation_timestamp[1])
-        self.timestamp= timestamp
+        self.timestamp= round(timestamp)
 
     @staticmethod
     def validate_transaction_type(transaction_type: TransactionTypeEnum) -> Tuple[bool, str]:
@@ -66,3 +66,19 @@ class Transaction:
         if timestamp < 0:
             return(False, "Timestamp can't be negative")
         return(True, "")
+    
+    @staticmethod
+    def validate_request(request: dict) -> Tuple[bool, str]:
+        if request is None:
+            return(False, "Request is required")
+        if type(request) != dict:
+            return(False, "Request must be a dict")
+        return(True, "")
+    
+    def to_dict(self):
+        return{
+            "type": self.transaction_type,
+            "value": self.value,
+            "current_balance": self.current_balance,
+            "timestamp": self.timestamp
+        }

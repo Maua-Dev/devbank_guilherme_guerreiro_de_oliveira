@@ -4,9 +4,9 @@ from ..enums.transaction_type_enum import TransactionTypeEnum
 
 from ..entities.transaction import Transaction
 
-from ..repo.transaction_repository_interface import ITransactionRepositoy
+from ..repo.transaction_repository_interface import ITransactionRepository
 
-class TransactionRepositoryMock(ITransactionRepositoy):
+class TransactionRepositoryMock(ITransactionRepository):
     transactions: Dict[int, Transaction]
 
     def __init__(self):
@@ -28,7 +28,7 @@ class TransactionRepositoryMock(ITransactionRepositoy):
         self.transactions[len(self.transactions) +1]= transaction
         return transaction
 
-    def create_deposit_transaction(self, transaction:Transaction) -> Optional[Transaction]:
+    def create_deposit_transaction(self, transaction: Transaction) -> Optional[Transaction]:
         if transaction.transaction_type != TransactionTypeEnum.deposit:
             return None
         self.transactions[len(self.transactions) + 1]= transaction

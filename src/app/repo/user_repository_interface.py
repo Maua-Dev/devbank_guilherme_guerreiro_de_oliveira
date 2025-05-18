@@ -5,7 +5,7 @@ from src.app.entities.transaction import Transaction
 
 from ..entities.user import User
 
-class IUserRepositoy(ABC):
+class IUserRepository(ABC):
 
     
     @abstractmethod
