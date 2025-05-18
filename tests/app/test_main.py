@@ -3,7 +3,7 @@ from fastapi.exceptions import HTTPException
 import pytest
 
 from src.app.entities.transaction import Transaction
-from src.app.enums.transaction_type_enum import TransactionTypeEnum
+from src.app.enums.type_enum import TransactionTypeEnum
 from src.app.main import deposit_transaction, get_history, get_user, withdraw_transaction
 from src.app.repo.transaction_repository_mock import TransactionRepositoryMock
 from src.app.repo.user_repository_mock import UserRepositoryMock

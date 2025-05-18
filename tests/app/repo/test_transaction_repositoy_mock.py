@@ -1,5 +1,5 @@
 from src.app.entities.transaction import Transaction
-from src.app.enums.transaction_type_enum import TransactionTypeEnum
+from src.app.enums.type_enum import TransactionTypeEnum
 from src.app.repo.transaction_repository_mock import TransactionRepositoryMock
 
 
@@ -31,7 +31,7 @@ class Test_TransactionRepositoryMock:
         repo=TransactionRepositoryMock()
 
         len_before= len(repo.transactions)
-        widrawTransaction= Transaction(transaction_type=TransactionTypeEnum.withdraw, value=100.0, current_balance=900.0, timestamp=123.4)
+        widrawTransaction= Transaction(type=TransactionTypeEnum.withdraw, value=100.0, current_balance=900.0, timestamp=123.4)
         repo.create_withdraw_transaction(transaction=widrawTransaction)
         len_after= len(repo.transactions)
 
@@ -41,7 +41,7 @@ class Test_TransactionRepositoryMock:
     def test_create_withdraw_transaction_however_transaction_type_is_deposit(self):
         repo=TransactionRepositoryMock()
 
-        depositTransaction= Transaction(transaction_type=TransactionTypeEnum.deposit, value=100.0, current_balance=1100.0, timestamp=123.4)
+        depositTransaction= Transaction(type=TransactionTypeEnum.deposit, value=100.0, current_balance=1100.0, timestamp=123.4)
         exceptTransaction= repo.create_withdraw_transaction(transaction=depositTransaction)
         
         assert None == exceptTransaction
@@ -50,7 +50,7 @@ class Test_TransactionRepositoryMock:
         repo=TransactionRepositoryMock()
 
         len_before= len(repo.transactions)
-        depositTransaction= Transaction(transaction_type=TransactionTypeEnum.deposit, value=100.0, current_balance=1100.0, timestamp=123.4)
+        depositTransaction= Transaction(type=TransactionTypeEnum.deposit, value=100.0, current_balance=1100.0, timestamp=123.4)
         repo.create_deposit_transaction(transaction=depositTransaction)
         len_after= len(repo.transactions)
 
@@ -60,7 +60,7 @@ class Test_TransactionRepositoryMock:
     def test_create_deposit_transaction_however_transaction_type_is_withdraw(self):
         repo=TransactionRepositoryMock()
 
-        widrawTransaction= Transaction(transaction_type=TransactionTypeEnum.withdraw, value=100.0, current_balance=900.0, timestamp=123.4)
+        widrawTransaction= Transaction(type=TransactionTypeEnum.withdraw, value=100.0, current_balance=900.0, timestamp=123.4)
         exceptTransaction= repo.create_deposit_transaction(transaction=widrawTransaction)
 
         assert exceptTransaction == None

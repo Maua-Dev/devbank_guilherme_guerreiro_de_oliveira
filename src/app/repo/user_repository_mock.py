@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional
 
-from ..enums.transaction_type_enum import TransactionTypeEnum
+from ..enums.type_enum import TransactionTypeEnum
 
 from ..entities.transaction import Transaction
 
@@ -29,8 +29,8 @@ class UserRepositoryMock(IUserRepository):
     
     def current_balance_after_transaction(self, transaction:Transaction, id_user: int) -> float:
         user= self.users.get(id_user, None)
-        if transaction.transaction_type == TransactionTypeEnum.withdraw:
+        if transaction.type == TransactionTypeEnum.withdraw:
             user.current_balance -= transaction.value
-        if transaction.transaction_type == TransactionTypeEnum.deposit:
+        if transaction.type == TransactionTypeEnum.deposit:
             user.current_balance += transaction.value
         return user.current_balance

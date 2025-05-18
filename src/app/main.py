@@ -2,7 +2,7 @@ from time import time
 from fastapi import FastAPI, HTTPException
 from mangum import Mangum
 
-from .enums.transaction_type_enum import TransactionTypeEnum
+from .enums.type_enum import TransactionTypeEnum
 
 from .entities.user import User
 from .entities.transaction import Transaction
@@ -58,7 +58,7 @@ def deposit_transaction(request: dict):
     
     user_current_balance+= total_value
     
-    deposit_transaction= Transaction(transaction_type=TransactionTypeEnum.deposit, value=total_value, current_balance=user_current_balance, timestamp=time())
+    deposit_transaction= Transaction(type=TransactionTypeEnum.deposit, value=total_value, current_balance=user_current_balance, timestamp=time())
 
     transaction= transaction_repo.create_deposit_transaction(transaction=deposit_transaction)
 
@@ -93,7 +93,7 @@ def withdraw_transaction(request: dict):
     
     user_current_balance-= total_value
     
-    withdraw_transaction= Transaction(transaction_type=TransactionTypeEnum.withdraw, value=total_value, current_balance=user_current_balance, timestamp=time())
+    withdraw_transaction= Transaction(type=TransactionTypeEnum.withdraw, value=total_value, current_balance=user_current_balance, timestamp=time())
 
     transaction= transaction_repo.create_withdraw_transaction(transaction=withdraw_transaction)
 
