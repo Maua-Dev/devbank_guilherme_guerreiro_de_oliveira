@@ -4,11 +4,11 @@ from ..errors.entity_errors import ParamNotValidated
 
 class User:
     name: str
-    agency: int
+    agency: str
     account: str
     current_balance= float
 
-    def __init__(self, name: str=None, agency: int=None, account: str=None, current_balance: float=1000.0):
+    def __init__(self, name: str=None, agency: str=None, account: str=None, current_balance: float=1000.0):
         validation_name= self.validate_name(name)
         if validation_name[0] is False:
             raise ParamNotValidated("name", validation_name[1])
@@ -42,15 +42,13 @@ class User:
         return(True, "")
     
     @staticmethod
-    def validate_agency(agency: int) -> Tuple[bool, str]:
+    def validate_agency(agency: str) -> Tuple[bool, str]:
         if agency is None:
             return(False, "Agency is required")
-        if type(agency) != int:
+        if type(agency) != str:
             return(False, "Agency must be a integer")
-        if agency < 0:
-            return(False, "Agency can't be negative")
-        if len(str(agency)) != 4:
-            return(False, "Agency must have 4 digits")
+        if not search(r'^\d{4}$', agency):
+            return(False, "Agency must be in the format '0000'")
         return(True, "")
     
     @staticmethod

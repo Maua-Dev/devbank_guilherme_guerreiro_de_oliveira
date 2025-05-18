@@ -18,6 +18,7 @@ class Test_Main:
         assert history == {
                 "all_transaction": [transaction.to_dict() for transaction in repo]
         }
+        
     def test_get_user(self):
         repo= UserRepositoryMock()
         response= get_user()

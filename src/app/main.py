@@ -24,10 +24,6 @@ def get_history():
 
 @app.get("/")
 def get_user():
-    validation_id_user= User.validate_id_user(1)
-    if not validation_id_user[0]:
-        raise HTTPException(status_code=400, detail=validation_id_user[1])
-    
     user= user_repo.get_user(1)
 
     if user is None:
