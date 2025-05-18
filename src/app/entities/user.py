@@ -1,13 +1,14 @@
 from typing import Tuple
+from re import search
 from ..errors.entity_errors import ParamNotValidated
 
 class User:
     name: str
     agency: int
-    account: int
+    account: str
     current_balance= float
 
-    def __init__(self, name: str=None, agency: int=None, account: int=None, current_balance: float=1000.0):
+    def __init__(self, name: str=None, agency: int=None, account: str=None, current_balance: float=1000.0):
         validation_name= self.validate_name(name)
         if validation_name[0] is False:
             raise ParamNotValidated("name", validation_name[1])
@@ -53,15 +54,13 @@ class User:
         return(True, "")
     
     @staticmethod
-    def validate_account(account: int) -> Tuple[bool, str]:
+    def validate_account(account: str) -> Tuple[bool, str]:
         if account is None:
             return(False, "Account is required")
-        if type(account) != int:
-            return(False, "Account must be a integer")
-        if account < 0:
-            return(False, "Account can't be negative")
-        if len(str(account)) != 6:
-            return(False, "Account must have 6 digits")
+        if type(account) != str:
+            return(False, "Account must be a string")
+        if not search(r'^\d{5}\-\d$', account):
+            return(False, "Account must be in the format '00000-0'")
         return(True, "")
     
     @staticmethod
