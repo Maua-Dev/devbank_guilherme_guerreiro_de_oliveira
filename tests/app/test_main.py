@@ -20,27 +20,11 @@ class Test_Main:
         }
     def test_get_user(self):
         repo= UserRepositoryMock()
-        id_user= 1
-        response= get_user(id_user)
+        response= get_user()
         assert response == {
-                "user": repo.users.get(id_user).to_dict()
+                "user": repo.users.get(1).to_dict()
         }
     
-    def test_get_id_user_is_none(self):
-        id_user= None
-        with pytest.raises(HTTPException) as err:
-            get_user(id_user)
-
-    def test_get_id_user_is_not_int(self):
-        id_user= 1.2
-        with pytest.raises(HTTPException) as err:
-            get_user(id_user)
-
-    def test_get_id_user_is_not_positive(self):
-        id_user= -1
-        with pytest.raises(HTTPException) as err:
-            get_user(id_user)
-
     def test_deposit_transaction(self):
         body = {
             '2': 0,

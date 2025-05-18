@@ -22,13 +22,13 @@ def get_history():
         "all_transaction": [transaction.to_dict() for transaction in transactions]
     }
 
-@app.get("/{id_user}")
-def get_user(id_user: int):
-    validation_id_user= User.validate_id_user(id_user)
+@app.get("/")
+def get_user():
+    validation_id_user= User.validate_id_user(1)
     if not validation_id_user[0]:
         raise HTTPException(status_code=400, detail=validation_id_user[1])
     
-    user= user_repo.get_user(id_user)
+    user= user_repo.get_user(1)
 
     if user is None:
         raise HTTPException(status_code=404, detail="User Not found")
