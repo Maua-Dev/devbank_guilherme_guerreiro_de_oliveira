@@ -74,4 +74,11 @@ class Transaction:
         if type(request) != dict:
             return(False, "Request must be a dict")
         return(True, "")
-        
+    
+    def to_dict(self):
+        return{
+            "type": self.transaction_type,
+            "value": self.value,
+            "current_balance": self.current_balance,
+            "timestamp": self.timestamp
+        }
