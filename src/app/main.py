@@ -29,9 +29,7 @@ def get_user():
     if user is None:
         raise HTTPException(status_code=404, detail="User Not found")
 
-    return {
-        "user": user.to_dict()
-    }
+    return user.to_dict()
 
 @app.post("/deposit", status_code=201)
 def deposit_transaction(request: dict):

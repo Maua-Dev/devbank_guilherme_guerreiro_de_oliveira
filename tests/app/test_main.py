@@ -22,9 +22,7 @@ class Test_Main:
     def test_get_user(self):
         repo= UserRepositoryMock()
         response= get_user()
-        assert response == {
-                "user": repo.users.get(1).to_dict()
-        }
+        assert response == repo.users.get(1).to_dict()
     
     def test_deposit_transaction(self):
         body = {

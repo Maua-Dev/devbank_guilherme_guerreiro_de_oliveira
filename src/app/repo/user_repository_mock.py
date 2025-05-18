@@ -17,7 +17,7 @@ class UserRepositoryMock(IUserRepository):
 
     def __init__(self):
         self.users = {
-            1: User("Victor Soller", agency="1234", account="12345-6", current_balance=1200.0),
+            1: User("Vitor Soller", agency="1234", account="12345-6", current_balance=1200.0),
             2: User("Enzo Sakamoto", agency="8933", account="22345-6", current_balance=1200.0),
             3: User("Mateus", agency="8912", account="34981-2", current_balance=1200.0),
             4: User("Rubio", agency="5678", account="34567-8", current_balance=1200.0)
