@@ -38,7 +38,7 @@ class Test_Main:
         response= deposit_transaction(request=body)
 
         assert response == {
-            "Current balance": 1210.0,
+            "current balance": 1210.0,
             "timestamp": round(time())
         }
 
@@ -110,7 +110,7 @@ class Test_Main:
         response= withdraw_transaction(request=body)
 
         assert response == {
-            "Current balance": 1010.0,
+            "current balance": 1010.0,
             "timestamp": round(time())
         }
 

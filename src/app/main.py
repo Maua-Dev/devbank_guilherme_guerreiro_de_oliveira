@@ -63,7 +63,7 @@ def deposit_transaction(request: dict):
     current_balance= user_repo.current_balance_after_transaction(transaction, 1)
 
     return {
-        "Current balance" : current_balance,
+        "current balance" : current_balance,
         "timestamp": deposit_transaction.timestamp
     }
 
@@ -98,7 +98,7 @@ def withdraw_transaction(request: dict):
     current_balance= user_repo.current_balance_after_transaction(transaction, 1)
 
     return {
-        "Current balance" : current_balance,
+        "current balance" : current_balance,
         "timestamp": withdraw_transaction.timestamp
     }
 
