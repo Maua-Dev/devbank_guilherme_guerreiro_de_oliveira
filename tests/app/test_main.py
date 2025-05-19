@@ -16,7 +16,7 @@ class Test_Main:
         history= get_history()
 
         assert history == {
-                "all_transaction": [transaction.to_dict() for transaction in repo]
+                "all_transactions": [transaction.to_dict() for transaction in repo]
         }
         
     def test_get_user(self):

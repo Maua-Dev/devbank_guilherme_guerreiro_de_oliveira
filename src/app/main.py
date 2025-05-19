@@ -19,7 +19,7 @@ transaction_repo= Environments.get_transaction_repo()()
 def get_history():
     transactions= transaction_repo.get_all_transactions()
     return {
-        "all_transaction": [transaction.to_dict() for transaction in transactions]
+        "all_transactions": [transaction.to_dict() for transaction in transactions]
     }
 
 @app.get("/")
