@@ -1,3 +1,4 @@
+import datetime
 from typing import Tuple
 
 from ..enums.type_enum import TransactionTypeEnum
@@ -8,9 +9,9 @@ class Transaction:
     type: TransactionTypeEnum
     value: float
     current_balance: float
-    timestamp= float
+    timestamp= str
 
-    def __init__(self, type: TransactionTypeEnum=None, value: float=None, current_balance: float=None, timestamp: float=None):
+    def __init__(self, type: TransactionTypeEnum=None, value: float=None, current_balance: float=None, timestamp: str=None):
         validation_type= self.validate_type(type)
         if validation_type[0] is False:
             raise ParamNotValidated("type", validation_type[1])
@@ -29,7 +30,7 @@ class Transaction:
         validation_timestamp= self.validate_timestamp(timestamp)
         if validation_timestamp[0] is False:
             raise ParamNotValidated("timestamp", validation_timestamp[1])
-        self.timestamp= round(timestamp)
+        self.timestamp= timestamp
 
     @staticmethod
     def validate_type(type: TransactionTypeEnum) -> Tuple[bool, str]:
@@ -63,10 +64,8 @@ class Transaction:
     def validate_timestamp(timestamp: float) -> Tuple[bool, str]:
         if timestamp is None:
             return(False, "Timestamp is required")
-        if type(timestamp) != float:
-            return(False, "Timestamp must be a float")
-        if timestamp < 0:
-            return(False, "Timestamp can't be negative")
+        if type(timestamp) != str:
+            return(False, "Timestamp must be a string")
         return(True, "")
     
     @staticmethod

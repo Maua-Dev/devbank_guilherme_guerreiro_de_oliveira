@@ -11,9 +11,9 @@ class TransactionRepositoryMock(ITransactionRepository):
 
     def __init__(self):
         self.transactions = {
-            1: Transaction(type=TransactionTypeEnum.deposit, value=200.0, current_balance=1200.0, timestamp=123.4),
+            1: Transaction(type=TransactionTypeEnum.deposit, value=200.0, current_balance=1200.0, timestamp="123"),
 
-            2: Transaction(type=TransactionTypeEnum.withdraw, value=200.0, current_balance=800.0, timestamp=123.4)
+            2: Transaction(type=TransactionTypeEnum.withdraw, value=200.0, current_balance=800.0, timestamp="123")
         }
     
     def get_all_transactions(self) -> List[Transaction]:

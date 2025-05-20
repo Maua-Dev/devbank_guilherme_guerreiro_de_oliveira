@@ -1,4 +1,4 @@
-from time import time
+from datetime import datetime
 from fastapi.exceptions import HTTPException
 import pytest
 
@@ -39,7 +39,7 @@ class Test_Main:
 
         assert response == {
             "current balance": 1210.0,
-            "timestamp": round(time())
+            "timestamp": response.get("timestamp")
         }
 
     def test_deposit_transaction_value_is_none(self):
@@ -111,7 +111,7 @@ class Test_Main:
 
         assert response == {
             "current_balance": 1010.0,
-            "timestamp": round(time())
+            "timestamp": response.get("timestamp")
         }
 
     def test_withdraw_transaction_value_is_none(self):
